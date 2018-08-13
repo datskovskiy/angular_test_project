@@ -8,6 +8,7 @@ import { Product } from '../model/product.model';
   styleUrls: ['./my-table.component.css']
 })
 export class MyTableComponent {
+  public selectedCategory = null;
 
   @Input('rows')
   rows: number;
@@ -16,15 +17,23 @@ export class MyTableComponent {
   deletedId: EventEmitter<number> = new EventEmitter();
 
   constructor(private repository: ProductRepository) {
-    this.rows = repository.products.length;
+    this.rows = repository.getProducts(this.selectedCategory).length;
   }
 
   getProducts(): Product[] {
-        return this.repository.products.slice(0, this.rows);
+    return this.repository.getProducts(this.selectedCategory).slice(0, this.rows);
   }
 
   deleteRow(id: number) {
     this.repository.deleteProduct(id);
     this.deletedId.emit(id);
+  }
+
+  public get categories(): string[] {
+    return this.repository.getCategories();
+  }
+
+  changeCategory(newCategory?: string) {
+    this.selectedCategory = newCategory;
   }
 }

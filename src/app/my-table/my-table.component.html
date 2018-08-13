@@ -3,7 +3,18 @@
     <tr>
       <th>Id</th>
       <th>Name</th>
+      <th>Category</th>
       <th colspan="2">Price</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>
+        <select class="form-control" [value]="selectedCategory" (change)="changeCategory($event.target.value)">
+          <option *ngFor="let c of categories" [value]="c">{{c}}</option>
+        </select>
+      </th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +26,7 @@
       <tr *ngFor="let p of getProducts()">
         <td>{{p.id}}</td>
         <td>{{p.name}}</td>
+        <td>{{p.category}}</td>
         <td>{{p.price | currency:"USD":true:"2.2-2"}}</td>
         <td>
           <button class="btn btn-sm btn-danger" (click)="deleteRow(p.id)">
