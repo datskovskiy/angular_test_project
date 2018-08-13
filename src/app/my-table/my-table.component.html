@@ -1,0 +1,27 @@
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th colspan="2">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="getProducts().length == 0 || rows == 0; then messageBlock else datatableBlock"></tr>
+    <ng-template #messageBlock>
+      <td colspan="3">There are no products</td>
+    </ng-template>
+    <ng-template #datatableBlock>
+      <tr *ngFor="let p of getProducts()">
+        <td>{{p.id}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.price | currency:"USD":true:"2.2-2"}}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="deleteRow(p.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>
