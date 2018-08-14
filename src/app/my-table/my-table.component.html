@@ -23,7 +23,7 @@
       <td colspan="3">There are no products</td>
     </ng-template>
     <ng-template #datatableBlock>
-      <tr *ngFor="let p of getProducts()">
+      <tr *ngFor="let p of getProducts()" [class.textRed]="p.price > 500 ? true : false" >
         <td>{{p.id}}</td>
         <td>{{p.name}}</td>
         <td>{{p.category}}</td>
