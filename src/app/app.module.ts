@@ -6,14 +6,18 @@ import { MyTableComponent } from './my-table/my-table.component';
 
 import { StaticDataSource } from './model/static.datasource';
 import { ProductRepository } from './model/product.repository';
+import { ProductCreatorComponent } from './product-creator/product-creator.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyTableComponent
+    MyTableComponent,
+    ProductCreatorComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [StaticDataSource, ProductRepository],
   bootstrap: [AppComponent]

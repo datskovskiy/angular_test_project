@@ -23,4 +23,12 @@ export class ProductRepository {
                 .filter((c, index, array) => array.indexOf(c) === index)
                 .sort();
     }
+
+    saveProduct(product: Product) {
+        if (product.id === undefined) {
+            product.id = this.products[this.products.length - 1].id;
+            product.id++;
+        }
+        this.products.push(product);
+    }
 }
