@@ -1,21 +1,23 @@
 <form novalidate #form="ngForm" (ngSubmit)="save(form)" class="m-a-1">
+
   <div class="form-group">
     <label>Name</label>
-    <input class="form-control" #name="ngModel" name="name" [(ngModel)]="product.name" required/>
+    <input class="form-control" #name="ngModel" name="name" [(ngModel)]="product.name" required minlength="4"/>
     <span *ngIf="submitted && name.invalid" class="text-danger">
       Please enter name of product
     </span>
   </div>
+
   <div class="form-group">
     <label>Category</label>
     <select class="form-control" #category="ngModel" [(ngModel)]="selectedCategory" name="category" required>
       <option *ngFor="let c of categories" [ngValue]="c">{{c}}</option>
     </select>
-    <!-- <input class="form-control" #category="ngModel" name="category" [(ngModel)]="product.category" required /> -->
     <span *ngIf="submitted && category.invalid" class="text-danger">
       Please enter category of product
     </span>
   </div>
+
   <div class="form-group">
     <label>Price</label>
     <input type="number" min="0" class="form-control" #price="ngModel" name="price" [(ngModel)]="product.price" required />
@@ -23,8 +25,9 @@
       Please enter price of product
     </span>
   </div>
+
   <div class="text-xs-center">
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid" >
       Save
     </button>
   </div>
