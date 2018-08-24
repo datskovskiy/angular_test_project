@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../model/product.model';
 import { ProductRepository } from '../model/product.repository';
 
@@ -8,26 +8,34 @@ import { ProductRepository } from '../model/product.repository';
   templateUrl: './product-creator.component.html',
   styleUrls: ['./product-creator.component.css']
 })
-export class ProductCreatorComponent {
-  submitted = false;
-  selectedCategory: string;
-  product: Product = new Product();
+export class ProductCreatorComponent implements OnInit {
+  newProductForm: FormGroup;
 
-  constructor(private repository: ProductRepository) { }
+  constructor(private repository: ProductRepository, private formbuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.initForm();
+  }
 
   public get categories(): string[] {
     return this.repository.getCategories();
   }
 
-  save(form: NgForm) {
-    this.submitted = true;
-
-    if (form.valid) {
-      this.product.category = this.selectedCategory;
-      this.repository.saveProduct(this.product);
-      this.product = new Product();
-      this.selectedCategory = null;
-      this.submitted = false;
+  save({ value, valid }: { value: Product, valid: boolean }) {
+    if (valid) {
+      this.repository.saveProduct(value);
+      this.newProductForm.reset();
     }
+  }
+
+  private initForm(): void {
+    this.newProductForm = this.formbuilder.group({
+      name: [null, [
+        Validators.required,
+        Validators.minLength(4)]
+      ],
+      category: [null, [Validators.required]],
+      price: [null, [Validators.required, Validators.min(0)]]
+    });
   }
 }

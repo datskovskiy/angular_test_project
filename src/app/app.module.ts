@@ -7,7 +7,7 @@ import { MyTableComponent } from './my-table/my-table.component';
 import { StaticDataSource } from './model/static.datasource';
 import { ProductRepository } from './model/product.repository';
 import { ProductCreatorComponent } from './product-creator/product-creator.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [StaticDataSource, ProductRepository],
   bootstrap: [AppComponent]

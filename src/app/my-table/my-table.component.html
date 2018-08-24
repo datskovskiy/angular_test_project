@@ -1,40 +1,42 @@
-<table class="table table-sm table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th colspan="2">Price</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>
-        <select class="form-control" [value]="selectedCategory" (change)="changeCategory($event.target.value)">
-          <option *ngFor="let c of categories" [value]="c">{{c}}</option>
-        </select>
-      </th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngIf="getProducts().length == 0 || rows == 0; then messageBlock else datatableBlock"></tr>
-    <ng-template #messageBlock>
-      <td colspan="3">There are no products</td>
-    </ng-template>
-    <ng-template #datatableBlock>
-      <tr *ngFor="let p of getProducts()" [class.textRed]="p.price > 500 ? true : false" >
-        <td>{{p.id}}</td>
-        <td>{{p.name}}</td>
-        <td>{{p.category}}</td>
-        <td>{{p.price | currency:"USD":true:"2.2-2"}}</td>
-        <td>
-          <button class="btn btn-sm btn-danger" (click)="deleteRow(p.id)">
-            Delete
-          </button>
-        </td>
+<div>
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th colspan="2">Price</th>
       </tr>
-    </ng-template>
-  </tbody>
-</table>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>
+          <select class="form-control" [value]="selectedCategory" (change)="changeCategory($event.target.value)">
+            <option *ngFor="let c of categories" [value]="c">{{c}}</option>
+          </select>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="getProducts().length == 0 || rows == 0; then messageBlock else datatableBlock"></tr>
+      <ng-template #messageBlock>
+        <td colspan="3">There are no products</td>
+      </ng-template>
+      <ng-template #datatableBlock>
+        <tr *ngFor="let p of getProducts()" [class.textRed]="p.price > 500 ? true : false" >
+          <td>{{p.id}}</td>
+          <td>{{p.name}}</td>
+          <td>{{p.category}}</td>
+          <td>{{p.price | currency:"USD":true:"2.2-2"}}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteRow(p.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
 <app-product-creator></app-product-creator>
